@@ -36,6 +36,39 @@ class Engine(object):
         # be sure to print out the last scene
 
         current_scene.enter()
+class Forest_Goblin(Scene):
+
+    def enter(self):
+        global health, attack
+        forest_g_health = 45
+        forest_g_attack = 3
+        print("Health: ", health)
+        print("Forest Goblin Health:", forest_g_health)  
+        while health > 0:   
+            if forest_g_health < 1:
+                attack = attack + 15
+                return 'forest' 
+            print(dedent("""
+                    1: Attack
+                    2: Flee
+                 """))
+
+            action = input("> ")
+
+            if action == "1":
+                health = health - forest_g_attack
+                forest_g_health = forest_g_health - attack 
+                print("Your Health:", health)
+                print("Forest Goblin Health:", forest_g_health)
+                                  
+            elif action == "2":
+                print("Running back to the forest.")
+                return 'forest'
+
+            else:
+                print("Wrong Input")
+                return 'forest_goblin'
+
 
 class Forest(Scene):
     def monster_encounter():
@@ -56,21 +89,7 @@ class Forest(Scene):
         action = input("> ")
 
         if action == "1":
-
-            if (monster_encounter == 2):
-                print("Forest Goblin!")
-                print("1: Attack")
-                print("2: Run")
-                action = input("> ")
-                if action == "1":
-                    print("attacking")
-                elif action == "2":
-                    print("running") 
-                    return 'forest'                   
-            print(dedent("""
-                        
-                  """))
-            return 'forest'
+                return 'forest_goblin'
         elif action == "2":
             print(dedent("""
                         2
